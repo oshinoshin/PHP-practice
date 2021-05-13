@@ -36,10 +36,27 @@ class SponsoredPost extends BasePost
   }
 }
 
+class PremiumPost extends BasePost
+{
+  private $price;
+
+  public function __construct($text, $price)
+  {
+    parent::__construct($text);
+    $this->price = $price;
+  }
+
+  public function show()
+  {
+    printf('%s [%d JPY]' . PHP_EOL, $this->text, $this->price);
+  }
+}
+
 $posts = [];
 $posts[0] = new Post('hello');
 $posts[1] = new Post('hello again');
 $posts[2] = new SponsoredPost('hello hello', 'dotinstall');
+$posts[3] = new PremiumPost('hello there', 300);
 
 function processPost(BasePost $post) 
 {
