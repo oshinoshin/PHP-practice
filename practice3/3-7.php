@@ -9,7 +9,7 @@ class Post
     $this->text = $text;
   }
 
-  final public function show()
+  public function show()
   {
     printf('%s' . PHP_EOL, $this->text);
   }
@@ -24,13 +24,7 @@ class SponsoredPost extends Post
     parent::__construct($text);
     $this->sponsor = $sponsor;
   }
-  
-  public function showSponsor()
-  {
-    printf('%s' . PHP_EOL, $this->sponsor);
-  }
-  
-  // override
+
   public function show()
   {
     printf('%s by %s' . PHP_EOL, $this->text, $this->sponsor);
@@ -42,7 +36,11 @@ $posts[0] = new Post('hello');
 $posts[1] = new Post('hello again');
 $posts[2] = new SponsoredPost('hello hello', 'dotinstall');
 
-$posts[0]->show();
-$posts[1]->show();
-$posts[2]->show();
-$posts[2]->showSponsor();
+function processPost(Post $post)
+{
+  $post->show();
+}
+
+foreach ($posts as $post) {
+  processPost($post);
+}
