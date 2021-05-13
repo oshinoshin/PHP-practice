@@ -1,37 +1,30 @@
 <?php
 
-class Post
+class Post // 親クラス Superクラス
 {
   private $text;
-  private static $count = 0;
-  // private const VERSION = 0.1;
-  public const VERSION = 0.1;
 
   public function __construct($text)
   {
     $this->text = $text;
-    self::$count++;
   }
 
   public function show()
   {
     printf('%s' . PHP_EOL, $this->text);
   }
+}
+
+class SponsoredPost extends Post // 子クラス Subクラス
+{
   
-  public static function showInfo()
-  {
-    printf('Count: %d' . PHP_EOL, self::$count);
-    printf('Version: %.1f' . PHP_EOL, self::VERSION);
-  }
 }
 
 $posts = [];
 $posts[0] = new Post('hello');
 $posts[1] = new Post('hello again');
+$posts[2] = new SponsoredPost('hello hello');
 
 $posts[0]->show();
 $posts[1]->show();
-
-Post::showInfo();
-
-echo Post::VERSION . PHP_EOL;
+$posts[2]->show();
