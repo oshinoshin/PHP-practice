@@ -76,8 +76,16 @@ $posts[1] = new Post('hello again');
 $posts[2] = new SponsoredPost('hello hello', 'dotinstall');
 $posts[3] = new PremiumPost('hello there', 300);
 
-$posts[0]->like();
-$posts[3]->like();
+// $posts[0]->like();
+// $posts[3]->like();
+
+function processLikable(LikeInterface $likable)
+{
+  $likable->like();
+}
+
+processLikable($posts[0]);
+processLikable($posts[3]);
 
 function processPost(BasePost $post) 
 {
