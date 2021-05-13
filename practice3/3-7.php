@@ -1,6 +1,6 @@
 <?php
 
-class Post // 親クラス Superクラス
+class Post
 {
   private $text;
 
@@ -15,16 +15,28 @@ class Post // 親クラス Superクラス
   }
 }
 
-class SponsoredPost extends Post // 子クラス Subクラス
+class SponsoredPost extends Post
 {
+  private $sponsor;
   
+  public function __construct($text, $sponsor)
+  {
+    parent::__construct($text);
+    $this->sponsor = $sponsor;
+  }
+  
+  public function showSponsor()
+  {
+    printf('%s' . PHP_EOL, $this->sponsor);
+  }
 }
 
 $posts = [];
 $posts[0] = new Post('hello');
 $posts[1] = new Post('hello again');
-$posts[2] = new SponsoredPost('hello hello');
+$posts[2] = new SponsoredPost('hello hello', 'dotinstall');
 
 $posts[0]->show();
 $posts[1]->show();
 $posts[2]->show();
+$posts[2]->showSponsor();
