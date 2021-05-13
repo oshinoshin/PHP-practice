@@ -1,6 +1,6 @@
 <?php
 
-class Post
+abstract class BasePost
 {
   protected $text;
 
@@ -9,16 +9,21 @@ class Post
     $this->text = $text;
   }
 
+  abstract public function show();
+}
+
+class Post extends BasePost
+{
   public function show()
   {
     printf('%s' . PHP_EOL, $this->text);
   }
 }
 
-class SponsoredPost extends Post
+class SponsoredPost extends BasePost
 {
   private $sponsor;
-  
+
   public function __construct($text, $sponsor)
   {
     parent::__construct($text);
@@ -36,7 +41,7 @@ $posts[0] = new Post('hello');
 $posts[1] = new Post('hello again');
 $posts[2] = new SponsoredPost('hello hello', 'dotinstall');
 
-function processPost(Post $post)
+function processPost(BasePost $post) 
 {
   $post->show();
 }
