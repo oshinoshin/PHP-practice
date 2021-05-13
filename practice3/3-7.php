@@ -2,14 +2,14 @@
 
 class Post
 {
-  private $text;
+  protected $text;
 
   public function __construct($text)
   {
     $this->text = $text;
   }
 
-  public function show()
+  final public function show()
   {
     printf('%s' . PHP_EOL, $this->text);
   }
@@ -28,6 +28,12 @@ class SponsoredPost extends Post
   public function showSponsor()
   {
     printf('%s' . PHP_EOL, $this->sponsor);
+  }
+  
+  // override
+  public function show()
+  {
+    printf('%s by %s' . PHP_EOL, $this->text, $this->sponsor);
   }
 }
 
