@@ -1,5 +1,10 @@
 <?php
 
+interface LikeInterface
+{
+  public function like();
+}
+
 abstract class BasePost
 {
   protected $text;
@@ -12,11 +17,18 @@ abstract class BasePost
   abstract public function show();
 }
 
-class Post extends BasePost
+class Post extends BasePost implements LikeInterface
 {
+  private $likes = 0;
+  
+  public function like()
+  {
+    $this->likes++;
+  }
+
   public function show()
   {
-    printf('%s' . PHP_EOL, $this->text);
+    printf('%s (%d)' . PHP_EOL, $this->text, $this->likes);
   }
 }
 
@@ -36,10 +48,16 @@ class SponsoredPost extends BasePost
   }
 }
 
-class PremiumPost extends BasePost
+class PremiumPost extends BasePost implements LikeInterface
 {
   private $price;
-
+  private $likes = 0;
+  
+  public function like()
+  {
+    $this->likes++;
+  }
+  
   public function __construct($text, $price)
   {
     parent::__construct($text);
@@ -48,7 +66,7 @@ class PremiumPost extends BasePost
 
   public function show()
   {
-    printf('%s [%d JPY]' . PHP_EOL, $this->text, $this->price);
+    printf('%s (%d) [%d JPY]' . PHP_EOL, $this->text, $this->likes, $this->price);
   }
 }
 
@@ -57,6 +75,9 @@ $posts[0] = new Post('hello');
 $posts[1] = new Post('hello again');
 $posts[2] = new SponsoredPost('hello hello', 'dotinstall');
 $posts[3] = new PremiumPost('hello there', 300);
+
+$posts[0]->like();
+$posts[3]->like();
 
 function processPost(BasePost $post) 
 {
