@@ -3,25 +3,22 @@
 class Post
 {
   private $text;
-  private $likes = 0;
+  private static $count = 0;
 
   public function __construct($text)
   {
     $this->text = $text;
+    self::$count++;
   }
 
   public function show()
   {
-    printf('%s (%d)' . PHP_EOL, $this->text, $this->likes);
+    printf('%s' . PHP_EOL, $this->text);
   }
   
-  public function like()
+  public static function showInfo()
   {
-    $this->likes++;
-    
-    if ($this->likes > 100) {
-      $this->likes = 100;
-    }
+    printf('Count: %d' . PHP_EOL, self::$count);
   }
 }
 
@@ -29,9 +26,7 @@ $posts = [];
 $posts[0] = new Post('hello');
 $posts[1] = new Post('hello again');
 
-// $posts[0]->likes++;
-// $posts[0]->likes = -100;
-$posts[0]->like();
-
 $posts[0]->show();
 $posts[1]->show();
+
+Post::showInfo();
